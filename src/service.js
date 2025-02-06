@@ -4,17 +4,15 @@ if (!process.env.REACT_APP_API_URL) {
   console.warn("Warning: Missing environment variable REACT_APP_API_URL");
 }
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
 // הוספת Interceptor לתפיסת שגיאות בתגובה
 axios.interceptors.response.use(
   response => response, // אם התגובה תקינה החזר אותה כמו שהיא
-
-  axios.interceptors.response.use(
-    response => response,
-    error => {
-      console.error('Error in Axios response:', error.message || error);
-      alert("An error occurred while processing your request. Please try again.");
-      return Promise.reject(error);
-    })
+  error => {
+    console.error('Error in Axios response:', error.message || error);
+    alert("An error occurred while processing your request. Please try again.");
+    return Promise.reject(error);
+  }
 );
 
 export default {
